@@ -36,12 +36,33 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-app.use("/api/users", usersRoutes(knex));
+// app.use("/api/users", usersRoutes(knex));
 
 // Home page
 app.get("/", (req, res) => {
   res.render("index");
 });
+
+app.get("/createpoll", (req, res) => {
+  res.render("createpoll");
+});
+
+app.get("/poll-successfully-created", (req, res) => {
+  res.render("poll-successfully-created");
+});
+
+app.get("/poll", (req, res) => {
+  res.render("poll");
+});
+
+app.get("/results", (req, res) => {
+  res.render("results");
+});
+
+app.get("/thankyou", (req, res) => {
+  res.render("thankyou");
+});
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
