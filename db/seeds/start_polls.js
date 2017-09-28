@@ -1,11 +1,13 @@
 exports.seed = function(knex, Promise) {
     return Promise.all([
-        knex('votes').insert({ option_id: 1, score: 5}),
-        knex('votes').insert({ option_id: 2, score: 2}),
-        knex('votes').insert({ option_id: 3, score: 4}),
-        knex('votes').insert({ option_id: 1, score: 9}),
-        knex('votes').insert({ option_id: 2, score: 1}),
-        knex('votes').insert({ option_id: 3, score: 5})
+        knex('polls').returning('id')
+        .insert({ poll_title: 'test', email: 'test@test.com'})
+          .then((ids) => {
+            return knex('options').returning('id')
+              .insert({
+              poll_id: ids[0], option_name: 'testOption'
+            })
+          })
     ])
   };
   
