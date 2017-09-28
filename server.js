@@ -35,9 +35,11 @@ app.use(express.static("public"));
 
 // Home page
 app.get("/", (req, res) => {
-  
-  console.log(pollTitle);
-  res.render("index");
+  pollDataHelper.getPollByID(1).then((results) => {
+    let pollTitle = results[0].poll_title;
+    console.log(pollTitle);
+    res.render("index", { pollTitle: pollTitle });
+  });
 });
 
 app.get("/createpoll", (req, res) => {
@@ -49,7 +51,11 @@ app.get("/poll-successfully-created", (req, res) => {
 });
 
 app.get("/poll", (req, res) => {
-  res.render("poll");
+  pollDataHelper.getPollByID(1).then((results) => {
+    let pollTitle = results[0].poll_title;
+    console.log(pollTitle);
+    res.render("poll", { pollTitle: pollTitle });
+  });
 });
 
 app.get("/results", (req, res) => {
