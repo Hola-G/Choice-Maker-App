@@ -5,16 +5,18 @@
 <% include ./partials/_header %>
 
 <body>
-  This is where we will display the page where you create a new poll at /createpoll
+  <h1>Let's create a poll!</h1>
 
-  <form>
+  <form method="POST" action="/test">
     <p>Your email:</p>
     <input type="text" name="email" placeholder="example@example.com"></input>
     <p>Poll name:</p>
-    <input placeholder="Which movie?"></input>
+    <input name="poll_title" placeholder="Which movie?"></input>
     <p>Enter options...</p>
-    <p><input placeholder="Option 1"></input>
-    <button>+</button></p>
+    <div id="makeoptions">
+      <p><input name="option" placeholder="Enter option"></input>
+      <button class="creatediv">+</button></p>
+    </div>
     <!-- + button adds another option enter text field -->
     <button>Create poll</button>
   </form>
