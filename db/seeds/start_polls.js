@@ -7,9 +7,9 @@ exports.seed = function(knex, Promise) {
         knex('polls').insert({ poll_title: 'fruit', email: 'food@food.com'}),
 
         // 3 options
-        knex('options').insert({poll_id: 1, description: 'apple'}),
-        knex('options').insert({poll_id: 1, description: 'banana'}),
-        knex('options').insert({poll_id: 1, description: 'orange'}),
+        knex('options').insert({poll_id: 1, option_name: 'apple'}),
+        knex('options').insert({poll_id: 1, option_name: 'banana'}),
+        knex('options').insert({poll_id: 1, option_name: 'orange'}),
 
         // 2 submissions ( 6 votes )
         knex('votes').insert({ option_id: 1, score: 5}),
