@@ -58,6 +58,11 @@ app.get("/thankyou", (req, res) => {
 });
 
 
+app.post("/poll", (req, res) => {
+  console.log(req);
+})
+
+
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
 });
