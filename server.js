@@ -35,9 +35,8 @@ app.use(express.static("public"));
 
 // Home page
 app.get("/", (req, res) => {
-  let pollData = pollDataHelper.getPollByID(1).then((results) => {
-    console.log(results[0].poll_title);
-  });
+  
+  console.log(pollTitle);
   res.render("index");
 });
 
@@ -68,6 +67,7 @@ app.post("/poll", (req, res) => {
 
 app.post("/test", (req, res) => {
   console.log(req.body);
+  res.end();
 })
 
 
