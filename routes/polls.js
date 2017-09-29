@@ -8,10 +8,7 @@ module.exports = (knex) => {
     
     // Home page
     router.get("/", (req, res) => {
-        dataHelper.getPollByID(1).then((results) => {
-            let pollTitle = results[0].poll_title;
-            res.render("index", { pollTitle: pollTitle });
-        });
+        res.render("index");
     });
 
     router.get("/createpoll", (req, res) => {
@@ -66,7 +63,6 @@ module.exports = (knex) => {
         dataHelper.submitVotes(req.body.options).then((results) => {
             res.status(200).send();
         });
-        // console.log(req);
     })
 
     return router;
