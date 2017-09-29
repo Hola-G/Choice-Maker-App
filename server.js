@@ -46,15 +46,28 @@ app.get("/createpoll", (req, res) => {
   res.render("createpoll");
 });
 
+app.post("/createpoll", (req, res) => {
+  console.log(req.body);
+  res.send('You have posted!');
+});
+
 app.get("/poll-successfully-created", (req, res) => {
   res.render("poll-successfully-created");
 });
 
 app.get("/poll", (req, res) => {
-  pollDataHelper.getPollByID(1).then((results) => {
-    let pollTitle = results[0].poll_title;
-    console.log(pollTitle);
-    res.render("poll", { pollTitle: pollTitle });
+  let getPollData = Promise.all([
+    pollDataHelper.getPollByID(1),
+    pollDataHelper.getOptionsByPollID(1)
+  ]).then((results) => {
+    let poll = {
+      poll_title: results[0][0].poll_title,
+      email: results[0][0].email,
+      options: results[1]
+    }
+    
+    console.log(poll);
+    res.render("poll", { poll: poll });
   });
 });
 
@@ -75,6 +88,21 @@ app.post("/test", (req, res) => {
   console.log(req.body);
   res.end();
 })
+
+app.get("/chad", (req, res) => {
+  let testArray = [
+    { option_name: 'Blue', option_desc: '' },
+    { option_name: 'red', option_desc: '' },
+    { option_name: 'yellow', option_desc: '' }
+  ]
+  pollDataHelper.createOptions(1, testArray).then((result) => {
+    console.log(result);
+    res.status(201);
+  }).catch((error) => {
+    res.status(400);
+  });
+  res.send();
+});
 
 
 app.listen(PORT, () => {
