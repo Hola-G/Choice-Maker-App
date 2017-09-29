@@ -50,7 +50,7 @@ $(() => {
 
     $.ajax({
       method: 'POST',
-      url: '/test',
+      url: '/createpoll',
       data: {
        poll_title: poll_title,
        email: email,
