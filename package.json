@@ -13,9 +13,11 @@
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "bootstrap": "^4.0.0-beta",
+    "bootstrap-sass": "^3.3.7",
     "dotenv": "^4.0.0",
     "ejs": "^2.4.1",
-    "express": "^4.13.4",
+    "express": "^4.16.0",
     "knex": "^0.13.0",
     "knex-logger": "^0.1.0",
     "mailgun-js": "^0.13.1",
