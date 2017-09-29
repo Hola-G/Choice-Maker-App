@@ -1,5 +1,8 @@
 $(() => {
 
+
+/////////////////////// poll
+
   $(".submitoptions").on("click", function(event) {
     event.preventDefault();
 
@@ -19,7 +22,7 @@ $(() => {
     })
   });
 
-////////////////////////
+//////////////////////// createpoll
 
   $(".creatediv").on("click", function(event) {
     event.preventDefault();
@@ -30,7 +33,7 @@ $(() => {
   });
 
 
-  $("#createpoll").on("click", function(event) {
+  $("form").on("submit", function(event) {
     event.preventDefault();
 
     var optionNames = [];
@@ -44,13 +47,6 @@ $(() => {
       });
     })
 
-
-    console.log(optionsObjectsArray);
-
-
-
-
-
     var poll_title = $(".poll_title").val();
     var email = $(".email").val();
     var options = optionsObjectsArray;
@@ -62,8 +58,30 @@ $(() => {
        poll_title: poll_title,
        email: email,
        options: options
+      },
+      success(data) {
+        console.log("Success!")
+      },
+      error(data) {
+        console.log("Error")
       }
     })
   })
 
 });
+
+
+//////////////////////// results
+
+
+
+
+
+
+
+
+
+
+
+
+

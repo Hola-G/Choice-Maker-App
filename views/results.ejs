@@ -4,17 +4,41 @@
 
 <% include ./partials/_header %>
 
+<head>
+  <style>
+  .container {
+    border-radius: 5px;
+    width: 50%;
+    margin: 0px auto;
+    float: none;
+  }
+  </style>
+</head>
+
 <body>
-  This is where you view the results at /:shortURL/results
+<div class="container resultstable">
+  <table class="table table-hover text-center">
+    <thead>
+      <tr>
+        <th>Rank</th>
+        <th>Option</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% var counter = 0 %>
+      <% for (var key in poll.options) { %>
+      <tr>
+        <th scope="row"><%= counter = counter + 1 %></th>
+        <td><%= poll.options[key].option_name %></td>
+        <td><%= poll.options[key].sum %></td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
 
-  <h3>Poll Name Here</h3>
-
-  <p>1. Winning option</p>
-  <p>2. Second best</p>
-  <p>3. Etc.</p>
-
-  <p><a href="#">Link to poll for sharing</a></p>
-
+  <p class="text-center"><a href="#">Share poll</a></p>
+</div>
 </body>
 
 
