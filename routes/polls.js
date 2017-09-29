@@ -1,6 +1,7 @@
 'use strict';
 
 const express = require('express');
+const sendMail = require('../lib/mailgun.js');
 const router = express.Router();
 
 module.exports = (knex) => {
@@ -25,6 +26,7 @@ module.exports = (knex) => {
 
         dataHelper.createPoll(poll_title, email).then((poll_id) => {
             dataHelper.createOptions(poll_id[0], options).then((results) => {
+                // sendMail(email, poll_id[0]);
                 return res.sendStatus(200);
             })
         })
