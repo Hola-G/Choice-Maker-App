@@ -24,8 +24,8 @@
     <div class="row">
       <div class="col-lg-12 col-centered">
         <h1 class="text-center"><%= poll.poll_title %></h1>
-        <form method="POST" action="/poll">
-        <ul id="sortable" class="list-unstyled">
+        <form method="POST" action="/poll" class="row flex-column align-items-center">
+        <ul id="sortable" class="list-unstyled col-md-6">
           <% for (key in poll.options) { %>
           <li class="ui-state-default" rel="<%= poll.options[key].id %>">
             <h4 class="card-header"><%= poll.options[key].option_name %></h4>
@@ -33,7 +33,9 @@
           </li>
           <% } %>
         </ul>
-        <button class="btn btn-info submitoptions">Done</button>
+        <div class="button-div">
+          <button class="btn btn-info submitoptions">Done</button>
+        </div>
       </form>
       </div>
     </div>
