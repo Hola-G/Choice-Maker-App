@@ -52,6 +52,14 @@ module.exports = (knex) => {
             });
     });
 
+    router.get("/results/:id/json", (req, res) => {
+        return Promise.all([dataHelper.getPollByID(req.params.id), dataHelper.getOptionsAndVotesByPollID(req.params.id)])
+            .then((results) => {
+                let poll = { poll_id: req.params.id, poll_title: results[0][0].poll_title, email: results[0][0].email, options: results[1] }
+                res.json({ poll });
+            });
+    });
+
     router.get("/thankyou", (req, res) => {
         res.render("thankyou");
     });

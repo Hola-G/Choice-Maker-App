@@ -16,10 +16,9 @@
 </head>
 
 <body>
-  <h1 class="text-center"><%= poll.poll_title %></h1>
-
   <div class="container resultstable">
-    <table class="table table-hover text-center">
+    <h1 class="text-center"><%= poll.poll_title %></h1>
+    <table class="table table-hover text-center results-table">
       <thead>
         <tr>
           <th>Rank</th>
@@ -41,6 +40,13 @@
 
     <p class="text-center">Share Poll: <br><input value=<%= `localhost:8080/poll/${poll.poll_id}` %> disabled></input></p>
   </div>
+  <script>
+    $(function() {
+      setInterval(function(){ 
+        getNewVotesAndUpdate(<%= poll.poll_id %>);
+      }, 5000);
+    });
+  </script>
 </body>
 
 
