@@ -46,7 +46,7 @@
       <form method="POST" action="/poll">
       <ul id="sortable">
         <% for (key in poll.options) { %>
-        <li class="ui-state-default" rel="option<%= key %>">
+        <li class="ui-state-default" rel="<%= poll.options[key].id %>">
           <h4 class="card-header"><%= poll.options[key].option_name %></h4>
           <p class="card-text"><%= poll.options[key].option_desc %></p>
         </li>
