@@ -26,7 +26,7 @@ module.exports = (knex) => {
 
         dataHelper.createPoll(poll_title, email).then((poll_id) => {
             dataHelper.createOptions(poll_id[0], options).then((results) => {
-                // sendMail(email, poll_id[0]);
+                sendMail(email, poll_id[0]);
                 return res.status(200).json({ poll_id: poll_id[0] });
             })
         })
