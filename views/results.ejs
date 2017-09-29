@@ -33,7 +33,7 @@
         <tr>
           <th scope="row"><%= counter = counter + 1 %></th>
           <td><%= poll.options[key].option_name %></td>
-          <td><%= poll.options[key].sum %></td>
+          <td><%= poll.options[key].sum || 0 %></td>
         </tr>
         <% } %>
       </tbody>
