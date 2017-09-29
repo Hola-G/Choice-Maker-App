@@ -16,31 +16,31 @@
 </head>
 
 <body>
-<h1 class="text-center"><%= poll.poll_title %></h1>
+  <h1 class="text-center"><%= poll.poll_title %></h1>
 
-<div class="container resultstable">
-  <table class="table table-hover text-center">
-    <thead>
-      <tr>
-        <th>Rank</th>
-        <th>Option</th>
-        <th>Score</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% var counter = 0 %>
-      <% for (var key in poll.options) { %>
-      <tr>
-        <th scope="row"><%= counter = counter + 1 %></th>
-        <td><%= poll.options[key].option_name %></td>
-        <td><%= poll.options[key].sum %></td>
-      </tr>
-      <% } %>
-    </tbody>
-  </table>
+  <div class="container resultstable">
+    <table class="table table-hover text-center">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Option</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% var counter = 0 %>
+        <% for (var key in poll.options) { %>
+        <tr>
+          <th scope="row"><%= counter = counter + 1 %></th>
+          <td><%= poll.options[key].option_name %></td>
+          <td><%= poll.options[key].sum %></td>
+        </tr>
+        <% } %>
+      </tbody>
+    </table>
 
-  <p class="text-center"><a href="/poll/:id">Share poll</a></p>
-</div>
+    <p class="text-center"><a href="/poll/:id">Share poll</a></p>
+  </div>
 </body>
 
 
