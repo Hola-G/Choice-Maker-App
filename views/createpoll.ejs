@@ -5,29 +5,35 @@
 <% include ./partials/_header %>
 
 <body class="text-center">
-  <h1>Let's create a poll!</h1>
+<div class="container">
+  <h1 class="text-info">Let's create a poll!</h1>
 
-  <form method="POST" action="/createpoll">
-    <p>Your email:</p>
-    <input type="email" name="email" class="email form-control-lg" placeholder="name@example.com" required></input>
+<div class="row d-flex justify-content-center">
+  <div class="col-md-6">
+  <form method="POST" action="/createpoll" >
+    <label>Your email:</label>
+    <input type="email" name="email" class="email form-control" placeholder="name@example.com" required></input>
 
-    <p>Poll name:</p>
-    <input name="poll_title" class="poll_title form-control-lg" placeholder="Which movie?"></input>
+    <label>Poll name:</label>
+    <input name="poll_title" class="poll_title form-control" placeholder="Which movie?"></input>
 
-    <p>Enter options...</p>
+    <label>Enter options...</label>
     <div class="options_section">
       <div class="option_container">
-      <p><input name="option_name" class="option_name form-control-lg" placeholder="Enter option"></input>
-      <p><textarea name="option_desc" class="option_desc form-control-lg" placeholder="Enter description (optional)"></textarea></p>
+      <p><input name="option_name" class="option_name form-control" placeholder="Enter option"></input>
+      <p><textarea name="option_desc" class="option_desc form-control" placeholder="Enter description (optional)"></textarea></p>
       </div>
     </div>
     <button class="creatediv">+</button></p>
     <!-- + button adds another option enter text field -->
     <button id="createpoll">Create poll</button>
   </form>
+  </div>
+  </div>
 
   <p>You will receive an email containing a link to share the poll,<br> as well as a link to the results.</p>
 
+</div>
 </body>
 
 
