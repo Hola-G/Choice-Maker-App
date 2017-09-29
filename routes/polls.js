@@ -60,7 +60,7 @@ module.exports = (knex) => {
     router.post("/poll", (req, res) => {
         dataHelper.submitVotes(req.body.options)
             .then((results) => {
-                res.redirect('/thankyou');
+                res.sendStatus(200);
             }).catch((error) => {
                 res.sendStatus(400);
             });

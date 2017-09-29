@@ -18,6 +18,9 @@ $(() => {
       url: '/poll',
       data: {
        options: orderArray
+      },
+      success() {
+        $(window).attr('location','/thankyou')
       }
     })
   });
