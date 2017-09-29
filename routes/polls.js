@@ -27,7 +27,7 @@ module.exports = (knex) => {
         dataHelper.createPoll(poll_title, email).then((poll_id) => {
             dataHelper.createOptions(poll_id[0], options).then((results) => {
                 // sendMail(email, poll_id[0]);
-                return res.sendStatus(200);
+                return res.status(200).json({ poll_id: poll_id[0] });
             })
         })
     });
@@ -39,7 +39,7 @@ module.exports = (knex) => {
     router.get("/poll/:id", (req, res) => {
         return Promise.all([dataHelper.getPollByID(req.params.id), dataHelper.getOptionsByPollID(req.params.id)])
             .then((results) => {
-                let poll = { poll_title: results[0][0].poll_title, email: results[0][0].email, options: results[1] }
+                let poll = { poll_id: req.params.id, poll_title: results[0][0].poll_title, email: results[0][0].email, options: results[1] }
                 res.render("poll", { poll: poll });
             });
     });
@@ -47,7 +47,7 @@ module.exports = (knex) => {
     router.get("/results/:id", (req, res) => {
         return Promise.all([dataHelper.getPollByID(req.params.id), dataHelper.getOptionsAndVotesByPollID(req.params.id)])
             .then((results) => {
-                let poll = { poll_title: results[0][0].poll_title, email: results[0][0].email, options: results[1] }
+                let poll = { poll_id: req.params.id, poll_title: results[0][0].poll_title, email: results[0][0].email, options: results[1] }
                 res.render("results", { poll: poll });
             });
     });
