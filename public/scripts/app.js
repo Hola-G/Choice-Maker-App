@@ -60,7 +60,8 @@ $(() => {
        options: options
       },
       success(data) {
-        console.log("Success!")
+        console.log("Success!", data)
+        window.location.href = '/results/' + data.poll_id;
       },
       error(data) {
         console.log("Error")
