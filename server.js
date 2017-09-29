@@ -77,8 +77,6 @@ app.get("/poll/:id", (req, res) => {
       email: results[0][0].email,
       options: results[1]
     }
-    
-    console.log(poll);
     res.render("poll", { poll: poll });
   });
 });
@@ -93,7 +91,10 @@ app.get("/thankyou", (req, res) => {
 
 
 app.post("/poll", (req, res) => {
-  console.log(req);
+  pollDataHelper.submitVotes(req.body.options).then((results) => {
+    res.status(200).send();
+  });
+  // console.log(req);
 })
 
 app.post("/test", (req, res) => {
