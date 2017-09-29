@@ -47,18 +47,30 @@ app.get("/createpoll", (req, res) => {
 });
 
 app.post("/createpoll", (req, res) => {
-  console.log(req.body);
-  res.send('You have posted!');
+  let poll_title = req.body.poll_title;
+  let email = req.body.email;
+  let options = req.body.options;
+
+  pollDataHelper.createPoll(poll_title, email).then((results) => {
+    console.log(results[0]);
+    pollDataHelper.createOptions(results[0], options).then((results) => {
+      console.log(results);
+      res.send("Success!" + results);
+    })
+  })
+
+  // console.log(req.body);
+  // res.send('You have posted!');
 });
 
 app.get("/poll-successfully-created", (req, res) => {
   res.render("poll-successfully-created");
 });
 
-app.get("/poll", (req, res) => {
+app.get("/poll/:id", (req, res) => {
   let getPollData = Promise.all([
-    pollDataHelper.getPollByID(1),
-    pollDataHelper.getOptionsByPollID(1)
+    pollDataHelper.getPollByID(req.params.id),
+    pollDataHelper.getOptionsByPollID(req.params.id)
   ]).then((results) => {
     let poll = {
       poll_title: results[0][0].poll_title,
