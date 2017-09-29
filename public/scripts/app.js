@@ -10,6 +10,13 @@ $(() => {
     console.log(orderArray);
     //orderArray now returns the order submitted!!!!!
     //use rel not id in html
+    $.ajax({
+      method: 'POST',
+      url: '/poll',
+      data: {
+       options: orderArray
+      }
+    })
   });
 
 ////////////////////////
