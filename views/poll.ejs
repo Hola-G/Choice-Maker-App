@@ -4,20 +4,21 @@
 
 <% include ./partials/_header %>
 <head>
-<meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style>
+ <meta charset="utf-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <style>
 
-  </style>
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-  <script>
-  $( function() {
-    $( "#sortable" ).sortable();
-    $( "#sortable" ).disableSelection();
-  } );
-  </script>
-</head>
+   </style>
+   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+   <script>
+   $( function() {
+     $( "#sortable" ).sortable();
+     $( "#sortable" ).disableSelection();
+   } );
+   </script>
+ </head>
+
 
 <body>
   <div class="container">
@@ -26,7 +27,7 @@
         <h1 class="text-center"><%= poll.poll_title %></h1>
         <form method="POST" action="/poll" class="row flex-column align-items-center">
         <ul id="sortable" class="list-unstyled col-md-6">
-          <% for (key in poll.options) { %>
+          <% for (var key in poll.options) { %>
           <li class="ui-state-default" rel="<%= poll.options[key].id %>">
             <h4 class="card-header"><%= poll.options[key].option_name %></h4>
             <p class="card-text"><%= poll.options[key].option_desc %></p>
