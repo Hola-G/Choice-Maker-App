@@ -50,45 +50,6 @@ $(() => {
     $(this).closest('.option_container').remove();
   });
 
-  $("form").on("submit", function(event) {
-    event.preventDefault();
-
-    var optionNames = [];
-    var optionDescs = [];
-    var optionsObjectsArray = [];
-
-    $('.option_container').each(function() {
-      let option_name = $(this).find('.option_name').val().trim();
-      let option_desc = $(this).find('.option_desc').val().trim();
-      if (option_name !== '') {
-        optionsObjectsArray.push({
-        option_name: option_name,
-        option_desc: option_desc
-      });
-      }
-    })
-
-    var poll_title = $(".poll_title").val();
-    var email = $(".email").val();
-    var options = optionsObjectsArray;
-
-    $.ajax({
-      method: 'POST',
-      url: '/createpoll',
-      data: {
-       poll_title: poll_title,
-       email: email,
-       options: options
-      },
-      success(data) {
-        console.log("Success!", data)
-        window.location.href = '/results/' + data.poll_id;
-      },
-      error(data) {
-        console.log("Error")
-      }
-    })
-  })
 
 });
 
