@@ -10,41 +10,41 @@
 
 <div class="row d-flex justify-content-center">
   <div class="col-md-6">
-  <form method="POST" action="/createpoll" >
-    <label class="text-info">Your email:</label>
-    <input type="email" name="email" class="email form-control" placeholder="name@example.com" required></input>
+    <form method="POST" action="/createpoll" >
+      <label class="text-info">Your email:</label>
+      <input type="email" name="email" class="email form-control"   placeholder="name@example.com" required></input>
 
-    <label class="text-info">Poll name:</label>
-    <input name="poll_title" class="poll_title form-control" placeholder="Which movie?"></input>
+      <label class="text-info">Poll name:</label>
+      <input name="poll_title" class="poll_title form-control" placeholder= "Which movie?"></input>
 
-    <label class="text-info">Enter options...</label>
-    <div class="options_section">
-      <div class="option_container">
-      <button class="delete-option"> x </button>
-      <input name="option_name" class="option_name form-control" placeholder="Enter option"></input>
-      <textarea name="option_desc" class="option_desc form-control" placeholder="Enter description (optional)"></textarea>
+      <label class="text-info">Enter options...</label>
+      <div class="options_section">
+        <div class="option_container">
+          <button class="delete-option"> x </button>
+          <input name="option_name" class="option_name form-control"    placeholder="Enter option"></input>
+          <textarea name="option_desc" class="option_desc form-control"   placeholder="Enter description (optional)"></textarea>
 
-      <div class="row text-sm-left upload">
-        <div class="col-sm-5">
-          <label class="text-info">image (optional):</label>
-        </div>
-        <div class="col-sm-7">
-          <input type="file" id="file" name="upload" class="text-info">
+          <div class="row text-sm-left upload">
+            <div class="col-sm-5">
+              <label class="text-info">image (optional):</label>
+            </div>
+            <div class="col-sm-7">
+              <input type="file" id="file" name="upload" class="text-info">
+            </div>
+          </div>
         </div>
       </div>
-
-      </div>
-    </div>
-    <button class="creatediv btn btn-info">Add Another Option</button></p>
-    <!-- + button adds another option enter text field -->
-    <button class="btn btn-info" id="createpoll">Create poll</button>
-  </form>
+      <button class="creatediv btn btn-info">Add Another Option</button>
+      </p>
+      <!-- + button adds another option enter text field -->
+      <button class="btn btn-info" id="createpoll">Create poll</button>
+    </form>
   </div>
-  </div>
+</div>
 
   <p class="text-info">You will receive an email containing a link to share the poll,<br> as well as a link to the results.</p>
 
-</div>
+</div> <!-- closing container text-center under body -->
 </body>
 
 
