@@ -7,8 +7,8 @@
   <div class="container">
     <h1 class="text-info text-center"><%= poll.poll_title %></h1>
     <br>
-    <div class="row">
-      <div class="col-md-12">
+    <div class="row text-secondary flex-column align-items-center">
+      <div class="col-md-8">
         <table class="table table-hover text-center results-table">
           <thead>
             <tr>
@@ -31,7 +31,7 @@
         <br>
         <div class="input-group">
           <span class="input-group-addon text-info" id="basic-addon3">Share Poll</span>
-          <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="<%= `http://localhost:8080/poll/${poll.poll_id}` %>">
+          <input type="text" class="form-control text-secondary" id="basic-url" aria-describedby="basic-addon3" value="<%= `http://localhost:8080/poll/${poll.poll_id}` %>">
         </div>
       </div>
     </div>
