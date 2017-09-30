@@ -44,10 +44,14 @@ $(() => {
     var optionsObjectsArray = [];
 
     $('.option_container').each(function() {
-      optionsObjectsArray.push({
-        option_name: $(this).find('.option_name').val(),
-        option_desc: $(this).find('.option_desc').val()
+      let option_name = $(this).find('.option_name').val();
+      let option_desc = $(this).find('.option_desc').val()
+      if (option_name !== '') {
+        optionsObjectsArray.push({
+        option_name: option_name,
+        option_desc: option_desc
       });
+      }
     })
 
     var poll_title = $(".poll_title").val();
@@ -80,7 +84,7 @@ $(() => {
 
 
 
-/* 
+/*
  *  Function to update results options with new
  *  data from AJAX GET request
  */
