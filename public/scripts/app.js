@@ -29,9 +29,9 @@ $(() => {
 
   $(".creatediv").on("click", function(event) {
     event.preventDefault();
-    $(".options_section").append(`<<div class="option_container">
-      <p><input name="option_name" class="option_name form-control" placeholder="Enter option"></input>
-      <p><textarea name="option_desc" class="option_desc form-control" placeholder="Enter description (optional)"></textarea></p>
+    $(".options_section").append(`<div class="option_container">
+      <input name="option_name" class="option_name form-control" placeholder="Enter option"></input>
+      <textarea name="option_desc" class="option_desc form-control" placeholder="Enter description (optional)"></textarea>
       </div>`)
   });
 
