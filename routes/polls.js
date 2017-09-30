@@ -3,7 +3,7 @@
 const express = require('express');
 const sendMail = require('../lib/mailgun.js');
 const router = express.Router();
-var formidable = require('formidable');
+// var formidable = require('formidable');
 
 module.exports = (knex) => {
     const dataHelper = require('../lib/data-helpers.js')(knex);
@@ -88,6 +88,9 @@ module.exports = (knex) => {
     });
 
     router.post('/upload', function (req, res){
+        //console.log(req.fields);
+        //console.log(req.files);
+
         var form = new formidable.IncomingForm();
     
         form.parse(req);
