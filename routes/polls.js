@@ -55,7 +55,13 @@ module.exports = (knex) => {
     router.get("/results/:id/json", (req, res) => {
         return Promise.all([dataHelper.getPollByID(req.params.id), dataHelper.getOptionsAndVotesByPollID(req.params.id)])
             .then((results) => {
-                let poll = { poll_id: req.params.id, poll_title: results[0][0].poll_title, email: results[0][0].email, options: results[1] }
+                //console.log(results[1]);
+                let options = results[1].map(function(option) {
+                    if (option.sum === null) { option.sum = '0'; }
+                    return option;
+                });
+                //console.log(options);
+                let poll = { poll_id: req.params.id, poll_title: results[0][0].poll_title, email: results[0][0].email, options: options }
                 res.json({ poll });
             });
     });
