@@ -2,56 +2,19 @@
 <html lang="en">
 <% include ./partials/_header %>
 
-  <body style="background-color: #fff;">
+  <body>
     <div class="container">
 
-      <div class="jumbotron">
-        <h1>Thank You!</h1>
-        <p class="lead">Your votes have been submitted!</p>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-12">
-
-          <div class="alert alert-success" role="alert">
-            This is a success alert—check it out!
-          </div>
-
-          <p>This is the page that you are directed to when you submit an answer to a poll, and the url is /thankyou The purpose
-            is to take that user off the poll page so they don'taccidentally re-submit</p>
-
-          <h3>Your answer was successfully submitted!</h3>
-          <p>Thank you!</p>
-
-          <button type="button" class="btn btn-primary">Primary</button>
-          <button type="button" class="btn btn-secondary">Secondary</button>
-          <button type="button" class="btn btn-success">Success</button>
-          <button type="button" class="btn btn-danger">Danger</button>
-          <button type="button" class="btn btn-warning">Warning</button>
-          <button type="button" class="btn btn-info">Info</button>
-          <button type="button" class="btn btn-light">Light</button>
-          <button type="button" class="btn btn-dark">Dark</button>
-          <button type="button" class="btn btn-link">Link</button>
-
-        </div>
-      </div>
-
-      <div class="row">
-        <div class="col-lg-12">
+      <div class="jumbotron bg-white">
+        <h1 class="text-info">Thank You!</h1>
+        <p class="lead text-info">
+          Your votes have been submitted!<br>
           <br>
-          <div class="card">
-            <div class="card-header">
-              Featured
-            </div>
-            <div class="card-body">
-              <h4 class="card-title">Special title treatment</h4>
-              <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-              <a href="#" class="btn btn-primary">Go somewhere</a>
-            </div>
-          </div>
-        </div>
+          Click the button below to start your own poll!<br>
+          <br>
+          <a href="/createpoll" class="btn btn-info">Start New Poll</a>
+        </p>
       </div>
-
 
     </div>
   </body>
