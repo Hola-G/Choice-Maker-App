@@ -1,44 +1,41 @@
 <!DOCTYPE html>
-
 <html lang="en">
 
 <% include ./partials/_header %>
 
-<head>
-  <style>
-  .container {
-    border-radius: 5px;
-    width: 50%;
-    margin: 0px auto;
-    float: none;
-  }
-  </style>
-</head>
-
 <body>
-  <div class="container resultstable">
-    <h1 class="text-center"><%= poll.poll_title %></h1>
-    <table class="table table-hover text-center results-table">
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Option</th>
-          <th>Score</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% var counter = 0 %>
-        <% for (var key in poll.options) { %>
-        <tr>
-          <th scope="row"><%= counter = counter + 1 %></th>
-          <td><%= poll.options[key].option_name %></td>
-          <td><%= poll.options[key].sum || 0 %></td>
-        </tr>
-        <% } %>
-      </tbody>
-    </table>
+  <div class="container">
+    <h1 class="text-info text-center"><%= poll.poll_title %></h1>
+    <br>
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-hover text-center results-table">
+          <thead>
+            <tr>
+              <th><span class="text-info">Rank</span></th>
+              <th><span class="text-info">Option</span></th>
+              <th><span class="text-info">Score</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <% var counter = 0 %>
+            <% for (var key in poll.options) { %>
+            <tr>
+              <td><%= counter = counter + 1 %></th>
+              <td><%= poll.options[key].option_name %></td>
+              <td><%= poll.options[key].sum || 0 %></td>
+            </tr>
+            <% } %>
+          </tbody>
+        </table>
+        <br>
+        <div class="input-group">
+          <span class="input-group-addon text-info" id="basic-addon3">Share Poll</span>
+          <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3" value="<%= `http://localhost:8080/poll/${poll.poll_id}` %>">
+        </div>
+      </div>
+    </div>
 
-    <p class="text-center">Share Poll: <br><input value=<%= `localhost:8080/poll/${poll.poll_id}` %> disabled></input></p>
   </div>
   <script>
     $(function() {
