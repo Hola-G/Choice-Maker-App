@@ -32,9 +32,15 @@ $(() => {
       <div class="option_container">
         <input name="option_name" class="option_name form-control" placeholder="Enter option"></input>
         <textarea name="option_desc" class="option_desc form-control" placeholder="Enter description (optional)"></textarea>
+        <button type="button" class="btn btn-default delete-option"> Delete </button>
       </div>`)
   });
 
+
+
+  $('.options_section').on('click', '.delete-option', function(){
+    $(this).closest('.option_container').remove();
+  });
 
   $("form").on("submit", function(event) {
     event.preventDefault();
