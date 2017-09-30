@@ -104,8 +104,18 @@ $(() => {
       resultsTable.empty();
       let currRow = 1;
       data.poll.options.forEach(function (o) {
-        let row = $(`<tr><td>${currRow}</td><td>${o.option_name}</td><td>${o.sum}</td></tr>`);
-        resultsTable.append(row);
+        resultsTable
+          .append($('<tr>')
+            .append($('<td>')
+              .text(currRow)
+            )
+            .append($('<td>')
+              .text(unescape(o.option_name))
+            )
+            .append($('<td>')
+              .text(o.sum)
+            )
+          )
         currRow = currRow + 1;
       });
     },

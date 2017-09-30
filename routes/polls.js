@@ -58,10 +58,12 @@ module.exports = (knex) => {
                 //console.log(results[1]);
                 let options = results[1].map(function(option) {
                     if (option.sum === null) { option.sum = '0'; }
+                    option.option_name = escape(option.option_name);
+                    option.option_desc = escape(option.option_desc);
                     return option;
                 });
                 //console.log(options);
-                let poll = { poll_id: req.params.id, poll_title: results[0][0].poll_title, email: results[0][0].email, options: options }
+                let poll = { poll_id: req.params.id, poll_title: escape(results[0][0].poll_title), email: results[0][0].email, options: options }
                 res.json({ poll });
             });
     });

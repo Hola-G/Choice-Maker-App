@@ -22,7 +22,7 @@
             <% for (var key in poll.options) { %>
             <tr>
               <td><%= counter = counter + 1 %></th>
-              <td><%= poll.options[key].option_name %></td>
+              <td><%= unescape(poll.options[key].option_name) %></td>
               <td><%= poll.options[key].sum || 0 %></td>
             </tr>
             <% } %>
