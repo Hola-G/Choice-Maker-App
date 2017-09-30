@@ -37,6 +37,11 @@ $(() => {
   });
 
 
+
+  $('.options_section').on('click', '.delete-option', function(){
+    $(this).closest('.option_container').remove();
+  });
+
   $("form").on("submit", function(event) {
     event.preventDefault();
 
