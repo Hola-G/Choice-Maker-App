@@ -11,7 +11,7 @@
 <div class="row d-flex justify-content-center">
   <div class="col-md-6">
 
-    <form method="POST" action="/createpoll" >
+    <form method="POST" action="/upload" enctype="multipart/form-data">
       <label class="text-info">Your email:</label>
       <input type="email" name="email" class="email form-control"   placeholder="name@example.com" required></input>
 
@@ -22,15 +22,15 @@
       <div class="options_section">
         <div class="option_container">
           <button class="delete-option"> x </button>
-          <input name="option_name" class="option_name form-control"    placeholder="Enter option"></input>
-          <textarea name="option_desc" class="option_desc form-control"   placeholder="Enter description (optional)"></textarea>
+          <input name="option_name_1" class="option_name form-control" placeholder="Enter option"></input>
+          <textarea name="option_desc_1" class="option_desc form-control" placeholder="Enter description (optional)"></textarea>
 
           <div class="row text-sm-left upload">
             <div class="col-sm-5">
               <label class="text-info">image (optional):</label>
             </div>
             <div class="col-sm-7">
-              <input type="file" id="file" name="upload" class="text-info">
+              <input type="file" id="file" name="option_url_1" class="text-info">
             </div>
           </div>
         </div>
