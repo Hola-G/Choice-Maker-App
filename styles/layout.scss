@@ -50,7 +50,11 @@ body {
   clear: both;
 }
 
-// #sortable li {
-//   margin-left: 5em;
-//   margin-right: 5em;
-// }
+
+.upload {
+  margin-top: 10px;
+}
+
+input#file {
+  margin-left: 10%;
+}
