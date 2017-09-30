@@ -36,25 +36,3 @@ body {
   color: #868e96;
   margin-right: -10px;
 }
-
-.img-fluid {
-  max-height: 6em;
-  width: auto;
-  float: left;
-
-}
-
-.img-fluid:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-
-.upload {
-  margin-top: 10px;
-}
-
-input#file {
-  margin-left: 10%;
-}
