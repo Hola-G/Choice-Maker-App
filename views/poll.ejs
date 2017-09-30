@@ -11,13 +11,12 @@
         <form method="POST" action="/poll" class="row flex-column align-items-center">
           <ul id="sortable" class="list-unstyled col-md-6">
             <% for (var key in poll.options) { %>
-              <li class="ui-state-default text-center text-info" rel="<%= poll.options[key].id %>">
-                <h4 class="card-header bg-white">
-                  <%= poll.options[key].option_name %>
-                </h4>
-                <p class="card-text">
-                  <%= poll.options[key].option_desc %>
-                </p>
+              <li class="ui-state-default text-center text-info d-flex" rel="<%= poll.options[key].id %>">
+                <div class="card-body bg-white">
+                  <img src="http://i.imgur.com/erN4hrf.png" class="img-fluid is-floated">
+                  <h4><div class="option_name"><%= poll.options[key].option_name %></div></h4>
+                  <div class="option_desc"><%= poll.options[key].option_desc %></div>
+                </div>
               </li>
               <% } %>
           </ul>

@@ -3,6 +3,7 @@
 body {
   background-color: #F0F8FF;
   margin-top: 20px;
+  padding: 10px;
 
   h1 {
     color: #244751;
@@ -24,17 +25,32 @@ body {
   color: #868e96;
 }
 
-// .option_name, .option_desc {
-//   margin: 0px 10px 0px 0px;
-// }
 
 .delete-option {
-      padding-bottom: 0px;
-      padding-top: 0px;
-      float: right;
-      border: none;
-      background-color: inherit;
-      cursor: pointer;
-      color: #868e96;
-      margin-right: -10px;
-    }
+  padding-bottom: 0px;
+  padding-top: 0px;
+  float: right;
+  border: none;
+  background-color: inherit;
+  cursor: pointer;
+  color: #868e96;
+  margin-right: -10px;
+}
+
+.img-fluid {
+  max-height: 6em;
+  width: auto;
+  float: left;
+
+}
+
+.img-fluid:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+// #sortable li {
+//   margin-left: 5em;
+//   margin-right: 5em;
+// }
