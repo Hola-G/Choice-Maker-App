@@ -3,6 +3,7 @@
 const express = require('express');
 const sendMail = require('../lib/mailgun.js');
 const router = express.Router();
+var formidable = require('formidable');
 
 module.exports = (knex) => {
     const dataHelper = require('../lib/data-helpers.js')(knex);
@@ -79,6 +80,27 @@ module.exports = (knex) => {
                 res.sendStatus(400);
             });
     })
+
+    router.get('/upload', function (req, res){
+        res.render("upload");
+    });
+
+    router.post('/upload', function (req, res){
+        var form = new formidable.IncomingForm();
+    
+        form.parse(req);
+    
+        form.on('fileBegin', function (name, file){
+            file.path = __dirname + '/uploads/' + file.name;
+        });
+    
+        form.on('file', function (name, file){
+            console.log('Uploaded ' + file.name);
+        });
+    
+        res.redirect('/thankyou');
+    });
+    
 
     return router;
 
