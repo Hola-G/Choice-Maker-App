@@ -8,7 +8,7 @@ module.exports = (knex) => {
     const dataHelper = require('../lib/data-helpers.js')(knex);
 
     router.get("/", (req, res) => {
-        res.render("index");
+        res.render("createpoll");
     });
 
     router.get("/createpoll", (req, res) => {
