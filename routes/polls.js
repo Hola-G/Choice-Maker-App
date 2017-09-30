@@ -93,11 +93,13 @@ module.exports = (knex) => {
         form.parse(req);
     
         form.on('fileBegin', function (name, file){
-            file.path = __dirname + '/uploads/' + file.name;
+            if (file.name !== '') {
+                file.path = __dirname + '/../public/uploads/' + file.name;
+            }
         });
     
         form.on('file', function (name, file){
-            console.log('Uploaded ' + file.name);
+            //console.log('Uploaded ' + file.name);
         });
     
         res.redirect('/thankyou');
