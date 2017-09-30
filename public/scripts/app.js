@@ -50,8 +50,8 @@ $(() => {
     var optionsObjectsArray = [];
 
     $('.option_container').each(function() {
-      let option_name = $(this).find('.option_name').val();
-      let option_desc = $(this).find('.option_desc').val()
+      let option_name = $(this).find('.option_name').val().trim();
+      let option_desc = $(this).find('.option_desc').val().trim();
       if (option_name !== '') {
         optionsObjectsArray.push({
         option_name: option_name,
