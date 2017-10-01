@@ -22,32 +22,27 @@ module.exports = (knex) => {
        
         // parse form
         form.parse(req, function (err, fields, files) {
+            console.log(files)
             const newPoll = {};
             newPoll.options = [];
             newPoll.poll_title = fields.poll_title;
             newPoll.email = fields.email;
 
             Object.keys(fields).slice(2).forEach(function(element, index) {
-                console.log("options", newPoll.options)
-                console.log("index", index, "current element", element)
                 if (!(index % 2)) {
-                    newPoll.options.push({ name: element })
+                    newPoll.options.push({ name: fields[element] })
                 } else {
-                    newPoll.options[index-1].description = element;
-                }
+                    newPoll.options[newPoll.options.length-1].description = fields[element];
+                } 
             });
-
-            console.log(newPoll.options);
-
-            form.on('fileBegin', function (name, file){
-                if (file.name !== '') {
-                    file.path = __dirname + '/../public/uploads/' + file.name;
-                }
-            });
-
-
 
         })
+        form.on('fileBegin', function (name, file){
+            console.log(file)
+            if (file.name !== '') {
+                file.path = __dirname + '/../public/uploads/' + file.name;
+            }
+        });
 
         // let options = req.body.options;
 
@@ -62,7 +57,7 @@ module.exports = (knex) => {
         //     })
         // })
 
-        res.redirect("/thankyou");
+        res.redirect("/createpoll");
     });
 
     router.get("/poll-successfully-created", (req, res) => {

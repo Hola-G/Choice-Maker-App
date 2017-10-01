@@ -25,23 +25,25 @@ $(() => {
   });
 
 //////////////////////// createpoll
-
+  let counter = 1;
   $(".creatediv").on("click", function(event) {
     event.preventDefault();
     $(".options_section").append(`
       <div class="option_container">
         <button class="delete-option"> x </button>
-        <input name="option_name" class="option_name form-control" placeholder="Enter option"></input>
-        <textarea name="option_desc" class="option_desc form-control" placeholder="Enter description (optional)"></textarea>
+        <input name="option_name_${counter}" class="option_name form-control" placeholder="Enter option"></input>
+        <textarea name="option_desc_${counter}" class="option_desc form-control" placeholder="Enter description (optional)"></textarea>
         <div class="row text-sm-left upload">
           <div class="col-sm-5">
             <label class="text-info">image:</label>
           </div>
           <div class="col-sm-7">
-            <input type="file" id="file" name="upload" class="text-info">
+            <input type="file" id="file" name="image_url_${counter}" class="text-info">
           </div>
         </div>
       </div>`)
+      counter++;
+      console.log(counter)
   });
 
 
