@@ -77,6 +77,8 @@ $(() => {
         window.location.href = '/results/' + data.poll_id;
       },
       error(data) {
+        $('.alert').remove();
+        $('#create-poll-form').prepend($(`<div class="alert alert-warning" role="alert">You must submit at least one option</div>`));
         console.log("Error")
       }
     })
