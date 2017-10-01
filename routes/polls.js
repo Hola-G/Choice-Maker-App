@@ -73,7 +73,11 @@ module.exports = (knex) => {
     router.post("/poll", (req, res) => {
         dataHelper.submitVotes(req.body.options)
             .then((results) => {
-                res.redirect('/thankyou');
+                dataHelper.getPollByID(req.body.poll_id).then((user) => {
+                    let email_body = `You have received votes on your poll! \n\n View Results : http://localhost:8080/results/${req.body.poll_id} \n\n View Poll : http://localhost:8080/poll/${req.body.poll_id}`;
+                    sendMail(user[0].email, req.body.poll_id, email_body);
+                    res.redirect('/thankyou');
+                });
             }).catch((error) => {
                 res.sendStatus(400);
             });
