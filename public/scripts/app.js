@@ -9,7 +9,6 @@ $(() => {
     $("li").each(function() {
       orderArray.push($(this).attr("rel"));
     });
-    console.log(orderArray);
     //orderArray now returns the order submitted!!!!!
     //use rel not id in html
     
