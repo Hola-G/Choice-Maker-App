@@ -17,38 +17,64 @@ module.exports = (knex) => {
     });
 
     router.post("/createpoll", (req, res) => {
-        
-        var form = new formidable.IncomingForm();
-       
-        // parse form
-    const parse = new Promise (function(resolve, reject){
-        form.parse(req, function (err, fields, files) {
-            console.log(files)
-            const newPoll = {};
-            newPoll.options = [];
-            newPoll.poll_title = fields.poll_title;
-            newPoll.email = fields.email;
-            Object.keys(fields).slice(2).forEach(function(element, index) {
-                if (!(index % 2)) {
-                    newPoll.options.push({ name: fields[element] })
-                } else {
-                    newPoll.options[newPoll.options.length-1].description = fields[element];
-                } 
-            });
-            resolve(newPoll);
+
+        var form = new formidable.IncomingForm(),
+        const files = [],
+        const fields = [];
+        form.on('field', function(field, value) {
+            fields.push([field, value]);
         })
-
-    });
-
-    parse.then(function(newPoll){
-        console.log(newPoll)
-    })
-        form.on('fileBegin', function (name, file){
-            console.log(file)
-            if (file.name !== '') {
-                file.path = __dirname + '/../public/uploads/' + file.name;
-            }
+        form.on('file', function(field, file) {
+            console.log(file.name);
+            files.push([field, file]);
+        })
+        form.on('end', function() {
+            console.log('done');
+            console.log("files", files)
+            console.log("fields", fields)
+            res.redirect('/createpoll');
         });
+        form.parse(req);
+
+
+
+
+
+
+
+
+        
+    //     var form = new formidable.IncomingForm();
+       
+    //     // parse form
+    // const parse = new Promise (function(resolve, reject){
+    //     form.parse(req, function (err, fields, files) {
+    //         console.log(files)
+    //         const newPoll = {};
+    //         newPoll.options = [];
+    //         newPoll.poll_title = fields.poll_title;
+    //         newPoll.email = fields.email;
+    //         Object.keys(fields).slice(2).forEach(function(element, index) {
+    //             if (!(index % 2)) {
+    //                 newPoll.options.push({ name: fields[element] })
+    //             } else {
+    //                 newPoll.options[newPoll.options.length-1].description = fields[element];
+    //             } 
+    //         });
+    //         resolve(newPoll);
+    //     })
+
+    // });
+
+    // parse.then(function(newPoll){
+    //     console.log(newPoll)
+    // })
+    //     form.on('fileBegin', function (name, file){
+    //         console.log(file)
+    //         if (file.name !== '') {
+    //             file.path = __dirname + '/../public/uploads/' + file.name;
+    //         }
+    //     });
 
         // let options = req.body.options;
 
@@ -63,7 +89,7 @@ module.exports = (knex) => {
         //     })
         // })
 
-        res.redirect("/createpoll");
+       // res.redirect("/createpoll");
     });
 
     router.get("/poll-successfully-created", (req, res) => {
