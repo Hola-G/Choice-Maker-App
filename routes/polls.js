@@ -21,13 +21,13 @@ module.exports = (knex) => {
         var form = new formidable.IncomingForm();
        
         // parse form
+    const parse = new Promise (function(resolve, reject){
         form.parse(req, function (err, fields, files) {
             console.log(files)
             const newPoll = {};
             newPoll.options = [];
             newPoll.poll_title = fields.poll_title;
             newPoll.email = fields.email;
-
             Object.keys(fields).slice(2).forEach(function(element, index) {
                 if (!(index % 2)) {
                     newPoll.options.push({ name: fields[element] })
@@ -35,8 +35,14 @@ module.exports = (knex) => {
                     newPoll.options[newPoll.options.length-1].description = fields[element];
                 } 
             });
-
+            resolve(newPoll);
         })
+
+    });
+
+    parse.then(function(newPoll){
+        console.log(newPoll)
+    })
         form.on('fileBegin', function (name, file){
             console.log(file)
             if (file.name !== '') {

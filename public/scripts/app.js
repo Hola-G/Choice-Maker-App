@@ -38,7 +38,7 @@ $(() => {
             <label class="text-info">image:</label>
           </div>
           <div class="col-sm-7">
-            <input type="file" id="file" name="image_url_${counter}" class="text-info">
+            <input type="file" name="image_url_${counter}" class="text-info file">
           </div>
         </div>
       </div>`)
