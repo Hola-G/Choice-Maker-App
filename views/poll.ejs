@@ -13,7 +13,11 @@
             <% for (var key in poll.options) { %>
               <li class="ui-state-default text-center text-info d-flex" rel="<%= poll.options[key].id %>">
                 <div class="card-body bg-white">
-                  <img class="img-fluid" src="https://i.imgur.com/F5iJY.jpg">
+                  <% if(poll.options[key].option_url){ %>
+                        <img class="img-fluid" src="/uploads/<%= poll.options[key].option_url %>">
+                      <% } else{ %>  
+                        <img class="img-fluid" src="https://i.imgur.com/F5iJY.jpg">
+                      <% } %>
                   <h4><div class="option_name"><%= poll.options[key].option_name %></div></h4>
                   <div class="option_desc"><%= poll.options[key].option_desc %></div>
                 </div>

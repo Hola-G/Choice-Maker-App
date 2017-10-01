@@ -5,6 +5,40 @@ const sendMail = require('../lib/mailgun.js');
 const router = express.Router();
 var formidable = require('formidable');
 
+function createnewPollObject(fields, files) {
+    function getOptionNumber(str) {
+        return parseInt(str.split('_')[2], 10);
+    }
+    // initiate new poll object
+    const newPoll = {
+        options: []
+    };
+    newPoll.email = fields[0][1];
+    newPoll.poll_title = fields[1][1];
+
+    // add options them to object
+    fields.slice(2).forEach(function(field, index) {
+        if (field[0].includes('name')) {
+            newPoll.options.push({ option_name: field[1], orderIndex: getOptionNumber(field[0]) })
+        } else {
+            newPoll.options[newPoll.options.length-1].option_desc = field[1];
+        } 
+    });
+
+    // add images to options
+    files.forEach(function(file){
+        if (file[1].name) {
+            newPoll.options.find(option => option.orderIndex === getOptionNumber(file[0])).option_url = file[1].name;
+        }
+    });
+
+    // delete orderIndex from options object
+    newPoll.options.forEach(option => delete option.orderIndex);
+
+    return newPoll;
+}
+
+
 module.exports = (knex) => {
     const dataHelper = require('../lib/data-helpers.js')(knex);
 
@@ -18,78 +52,42 @@ module.exports = (knex) => {
 
     router.post("/createpoll", (req, res) => {
 
-        var form = new formidable.IncomingForm(),
-        const files = [],
+        var form = new formidable.IncomingForm();
+        const files = [];
         const fields = [];
+        let newPoll;
+
         form.on('field', function(field, value) {
             fields.push([field, value]);
         })
+
+        form.on('fileBegin', function (name, file){
+            if (file.name !== '') {
+                file.path = __dirname + '/../public/uploads/' + file.name;
+            }
+        });
+
         form.on('file', function(field, file) {
             console.log(file.name);
             files.push([field, file]);
         })
+
         form.on('end', function() {
-            console.log('done');
-            console.log("files", files)
-            console.log("fields", fields)
-            res.redirect('/createpoll');
+            newPoll = createnewPollObject(fields, files);
+            if (!newPoll.poll_title || !newPoll.email || !newPoll.options) {
+                return res.sendStatus(400);
+            }
+            console.log(newPoll)
+            dataHelper.createPoll(newPoll.poll_title, newPoll.email).then((poll_id) => {
+                dataHelper.createOptions(poll_id[0], newPoll.options).then((results) => {
+                    sendMail(newPoll.email, poll_id[0]);
+
+                    //return res.status(200).json({ poll_id: poll_id[0] });
+                    return res.redirect('/createpoll');
+                })
+            })
         });
         form.parse(req);
-
-
-
-
-
-
-
-
-        
-    //     var form = new formidable.IncomingForm();
-       
-    //     // parse form
-    // const parse = new Promise (function(resolve, reject){
-    //     form.parse(req, function (err, fields, files) {
-    //         console.log(files)
-    //         const newPoll = {};
-    //         newPoll.options = [];
-    //         newPoll.poll_title = fields.poll_title;
-    //         newPoll.email = fields.email;
-    //         Object.keys(fields).slice(2).forEach(function(element, index) {
-    //             if (!(index % 2)) {
-    //                 newPoll.options.push({ name: fields[element] })
-    //             } else {
-    //                 newPoll.options[newPoll.options.length-1].description = fields[element];
-    //             } 
-    //         });
-    //         resolve(newPoll);
-    //     })
-
-    // });
-
-    // parse.then(function(newPoll){
-    //     console.log(newPoll)
-    // })
-    //     form.on('fileBegin', function (name, file){
-    //         console.log(file)
-    //         if (file.name !== '') {
-    //             file.path = __dirname + '/../public/uploads/' + file.name;
-    //         }
-    //     });
-
-        // let options = req.body.options;
-
-        // if (!poll_title || !email || !options) {
-        //     return res.sendStatus(500);
-        // }
-
-        // dataHelper.createPoll(poll_title, email).then((poll_id) => {
-        //     dataHelper.createOptions(poll_id[0], options).then((results) => {
-        //         sendMail(email, poll_id[0]);
-        //         return res.status(200).json({ poll_id: poll_id[0] });
-        //     })
-        // })
-
-       // res.redirect("/createpoll");
     });
 
     router.get("/poll-successfully-created", (req, res) => {
@@ -101,6 +99,7 @@ module.exports = (knex) => {
             .then((results) => {
                 let poll = { poll_id: req.params.id, poll_title: results[0][0].poll_title, email: results[0][0].email, options: results[1] }
                 res.render("poll", { poll: poll });
+                console.log(poll.options)
             });
     });
 
