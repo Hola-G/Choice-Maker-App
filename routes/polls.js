@@ -33,10 +33,6 @@ module.exports = (knex) => {
         })
     });
 
-    router.get("/poll-successfully-created", (req, res) => {
-        res.render("poll-successfully-created");
-    });
-
     router.get("/poll/:id", (req, res) => {
         return Promise.all([dataHelper.getPollByID(req.params.id), dataHelper.getOptionsByPollID(req.params.id)])
             .then((results) => {
