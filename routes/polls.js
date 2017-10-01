@@ -3,7 +3,7 @@
 const express = require('express');
 const sendMail = require('../lib/mailgun.js');
 const router = express.Router();
-// var formidable = require('formidable');
+var formidable = require('formidable');
 
 module.exports = (knex) => {
     const dataHelper = require('../lib/data-helpers.js')(knex);
@@ -17,20 +17,37 @@ module.exports = (knex) => {
     });
 
     router.post("/createpoll", (req, res) => {
-        let poll_title = req.body.poll_title;
-        let email = req.body.email;
-        let options = req.body.options;
 
-        if (!poll_title || !email || !options) {
-            return res.sendStatus(500);
-        }
+        var form = new formidable.IncomingForm();
+        
+        form.parse(req, function (err, fields, files) {
+            console.log(fields)
+            console.log(files)
+        });
+    
+        form.on('fileBegin', function (name, file){
+            if (file.name !== '') {
+                file.path = __dirname + '/../public/uploads/' + file.name;
+            }
+        });
 
-        dataHelper.createPoll(poll_title, email).then((poll_id) => {
-            dataHelper.createOptions(poll_id[0], options).then((results) => {
-                sendMail(email, poll_id[0]);
-                return res.status(200).json({ poll_id: poll_id[0] });
-            })
-        })
+        
+        // let poll_title = req.body.poll_title;
+        // let email = req.body.email;
+        // let options = req.body.options;
+
+        // if (!poll_title || !email || !options) {
+        //     return res.sendStatus(500);
+        // }
+
+        // dataHelper.createPoll(poll_title, email).then((poll_id) => {
+        //     dataHelper.createOptions(poll_id[0], options).then((results) => {
+        //         sendMail(email, poll_id[0]);
+        //         return res.status(200).json({ poll_id: poll_id[0] });
+        //     })
+        // })
+
+        res.redirect("/thankyou");
     });
 
     router.get("/poll-successfully-created", (req, res) => {
@@ -88,12 +105,15 @@ module.exports = (knex) => {
     });
 
     router.post('/upload', function (req, res){
-        //console.log(req.fields);
-        //console.log(req.files);
+
 
         var form = new formidable.IncomingForm();
+
     
-        form.parse(req);
+        form.parse(req, function (err, fields, files) {
+            console.log(fields)
+            console.log(files)
+        });
     
         form.on('fileBegin', function (name, file){
             if (file.name !== '') {
@@ -102,7 +122,7 @@ module.exports = (knex) => {
         });
     
         form.on('file', function (name, file){
-            //console.log('Uploaded ' + file.name);
+            console.log('Uploaded ' + file.name);
         });
     
         res.redirect('/thankyou');
