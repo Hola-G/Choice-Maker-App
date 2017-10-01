@@ -17,23 +17,38 @@ module.exports = (knex) => {
     });
 
     router.post("/createpoll", (req, res) => {
-
+        
         var form = new formidable.IncomingForm();
-        
+       
+        // parse form
         form.parse(req, function (err, fields, files) {
-            console.log(fields)
-            console.log(files)
-        });
-    
-        form.on('fileBegin', function (name, file){
-            if (file.name !== '') {
-                file.path = __dirname + '/../public/uploads/' + file.name;
-            }
-        });
+            const newPoll = {};
+            newPoll.options = [];
+            newPoll.poll_title = fields.poll_title;
+            newPoll.email = fields.email;
 
-        
-        // let poll_title = req.body.poll_title;
-        // let email = req.body.email;
+            Object.keys(fields).slice(2).forEach(function(element, index) {
+                console.log("options", newPoll.options)
+                console.log("index", index, "current element", element)
+                if (!(index % 2)) {
+                    newPoll.options.push({ name: element })
+                } else {
+                    newPoll.options[index-1].description = element;
+                }
+            });
+
+            console.log(newPoll.options);
+
+            form.on('fileBegin', function (name, file){
+                if (file.name !== '') {
+                    file.path = __dirname + '/../public/uploads/' + file.name;
+                }
+            });
+
+
+
+        })
+
         // let options = req.body.options;
 
         // if (!poll_title || !email || !options) {
