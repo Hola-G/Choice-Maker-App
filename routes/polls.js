@@ -6,6 +6,7 @@ const router = express.Router();
 var formidable = require('formidable');
 
 function createnewPollObject(fields, files) {
+    // get option number (to match files and options)
     function getOptionNumber(str) {
         return parseInt(str.split('_')[2], 10);
     }
@@ -16,7 +17,7 @@ function createnewPollObject(fields, files) {
     newPoll.email = fields[0][1];
     newPoll.poll_title = fields[1][1];
 
-    // add options them to object
+    // add options to object
     fields.slice(2).forEach(function(field, index) {
         if (field[0].includes('name')) {
             newPoll.options.push({ option_name: field[1], orderIndex: getOptionNumber(field[0]) })
@@ -68,7 +69,6 @@ module.exports = (knex) => {
         });
 
         form.on('file', function(field, file) {
-            console.log(file.name);
             files.push([field, file]);
         })
 
@@ -77,21 +77,14 @@ module.exports = (knex) => {
             if (!newPoll.poll_title || !newPoll.email || !newPoll.options) {
                 return res.sendStatus(400);
             }
-            console.log(newPoll)
             dataHelper.createPoll(newPoll.poll_title, newPoll.email).then((poll_id) => {
                 dataHelper.createOptions(poll_id[0], newPoll.options).then((results) => {
                     sendMail(newPoll.email, poll_id[0]);
-
-                    //return res.status(200).json({ poll_id: poll_id[0] });
-                    return res.redirect('/createpoll');
+                    return res.redirect('/results/' + poll_id[0]);
                 })
             })
         });
         form.parse(req);
-    });
-
-    router.get("/poll-successfully-created", (req, res) => {
-        res.render("poll-successfully-created");
     });
 
     router.get("/poll/:id", (req, res) => {
@@ -99,7 +92,6 @@ module.exports = (knex) => {
             .then((results) => {
                 let poll = { poll_id: req.params.id, poll_title: results[0][0].poll_title, email: results[0][0].email, options: results[1] }
                 res.render("poll", { poll: poll });
-                console.log(poll.options)
             });
     });
 
@@ -114,14 +106,12 @@ module.exports = (knex) => {
     router.get("/results/:id/json", (req, res) => {
         return Promise.all([dataHelper.getPollByID(req.params.id), dataHelper.getOptionsAndVotesByPollID(req.params.id)])
             .then((results) => {
-                //console.log(results[1]);
                 let options = results[1].map(function(option) {
                     if (option.sum === null) { option.sum = '0'; }
                     option.option_name = escape(option.option_name);
                     option.option_desc = escape(option.option_desc);
                     return option;
                 });
-                //console.log(options);
                 let poll = { poll_id: req.params.id, poll_title: escape(results[0][0].poll_title), email: results[0][0].email, options: options }
                 res.json({ poll });
             });
@@ -131,7 +121,6 @@ module.exports = (knex) => {
         res.render("thankyou");
     });
 
-
     router.post("/poll", (req, res) => {
         dataHelper.submitVotes(req.body.options)
             .then((results) => {
@@ -140,35 +129,6 @@ module.exports = (knex) => {
                 res.sendStatus(400);
             });
     })
-
-    router.get('/upload', function (req, res){
-        res.render("upload");
-    });
-
-    router.post('/upload', function (req, res){
-
-
-        var form = new formidable.IncomingForm();
-
-    
-        form.parse(req, function (err, fields, files) {
-            console.log(fields)
-            console.log(files)
-        });
-    
-        form.on('fileBegin', function (name, file){
-            if (file.name !== '') {
-                file.path = __dirname + '/../public/uploads/' + file.name;
-            }
-        });
-    
-        form.on('file', function (name, file){
-            console.log('Uploaded ' + file.name);
-        });
-    
-        res.redirect('/thankyou');
-    });
-    
 
     return router;
 
