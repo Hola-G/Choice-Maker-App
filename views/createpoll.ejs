@@ -13,23 +13,22 @@
 
     <form method="POST" action="/createpoll" enctype="multipart/form-data">
       <label class="text-info">Your email:</label>
-      <input type="email" name="email" class="email form-control"   placeholder="name@example.com" value="test@test.com" required></input>
+      <input type="email" name="email" class="email form-control"   placeholder="name@example.com" required></input>
 
       <label class="text-info">Poll name:</label>
-      <input name="poll_title" class="poll_title form-control" placeholder= "Which movie?" value="My Survey"></input>
+      <input name="poll_title" class="poll_title form-control" placeholder= "Which movie?"></input>
 
       <label class="text-info">Enter options...</label>
       <div class="options_section">
         <div class="option_container">
           <button class="delete-option"> x </button>
-          <input name="option_name_0" class="option_name form-control" placeholder="Enter option" value="One"></input>
+          <input name="option_name_0" class="option_name form-control" placeholder="Enter option"></input>
           <textarea name="option_desc_0" class="option_desc form-control" placeholder="Enter description (optional)" ></textarea>
 
           <div class="row text-sm-left upload">
-            <div class="col-sm-5">
-              <label class="text-info">image (optional):</label>
-            </div>
-            <div class="col-sm-7">
+
+            <div class="col-sm-12">
+            
               <input type="file"  name="option_image_0" class="text-info file">
             </div>
           </div>
