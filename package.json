@@ -21,7 +21,7 @@
     "express": "^4.16.0",
     "formidable": "^1.1.1",
     "jquery": "^3.2.1",
-    "knex": "^0.13.0",
+    "knex": "^0.19.5",
     "knex-logger": "^0.1.0",
     "mailgun-js": "^0.13.1",
     "morgan": "^1.7.0",
